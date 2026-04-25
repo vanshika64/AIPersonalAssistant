@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Personal Assistant</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='style.css')}}">
+</head>
+<body>
+    <h1 class="main-heading">AI Personal Assistant</h1>
+    <div class="container">
+        <h2>Ask Anything.</h2>
+        <form id="askform">
+            <input type="text" placeholder="Ask anything..." name="question" required>
+            <button type="submit">Ask</button>
+            <p id="ans-loading" style="display:none">Processing...</p>
+            <p id="answer"></p>
+        </form>
+
+        <hr>
+
+        <h2>Summarize EMail.</h2>
+        <form id="emailform">
+            <textarea type="text" placeholder="Paste your email here..." name="email" required></textarea>
+            <button type="submit">Summarize</button>
+            <p id="summary-loading" style="display:none">Summarizing...</p>
+            <p id="answer"></p>
+        </form>
+    </div>
+<script>
+    document.getElementById("askform").onsubmit=async(e)=>{
+        e.preventDefault();
+        let formdata=new FormData(e.target);
+        let loading=document.getElementById("ans-loading");
+        loading.style.display="block";
+        let res=await fetch("/ask", {
+            method:"POST",
+            body:formData
+        });
+        let data=await res.json();
+        document.getElementById("answer").innerText=data.response;
+        loading.style.display="none";
+    }
+    document.getElementById("emailform").onsubmit=async(e)=>{
+        e.preventDefault();
+        let formData=new FormData(e.target);
+        let loading =document.getElementById("summary-loading");
+        loading.style.display="block";
+        let res=await fetch("/summarize",{
+            method:"POST",
+            body:formData
+        });
+        let data=await res.json()
+        document.getElementById("summary").innerText=data.response;
+        loading.style.display="none";
+    }
+</body>
+</html>
