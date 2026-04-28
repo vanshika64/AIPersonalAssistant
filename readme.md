@@ -9,7 +9,7 @@ An intelligent web-based assistant that can **answer user queries** and **summar
 * 💬 Ask anything (AI-powered responses)
 * 📧 Email summarization (2–3 line concise output)
 * ⚡ Real-time responses using Fetch API (no page reload)
-* 🎯 Clean and responsive UI
+* 🎯 Clean and responsive UI Interface
 * 🔒 Secure API key handling using environment variables
 
 ---
